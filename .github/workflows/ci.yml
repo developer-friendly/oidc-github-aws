@@ -1,0 +1,19 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+      - name: Print the demo parameter
+        run: |
+          aws ssm get-parameters --names ${{ vars.SSM_DEMO_PARAMETER }} --with-decryption
