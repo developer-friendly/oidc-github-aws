@@ -16,6 +16,10 @@ jobs:
         with:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+      - name: Whoami
+        run: aws sts get-caller-identity
       - name: Print the demo parameter
         run: |
-          aws ssm get-parameters --names ${{ vars.SSM_DEMO_PARAMETER }} --with-decryption
+          aws ssm get-parameters \
+            --names ${{ vars.SSM_DEMO_PARAMETER }} \
+            --with-decryption
